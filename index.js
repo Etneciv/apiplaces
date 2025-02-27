@@ -3,7 +3,11 @@ import { GetCities, GetCitiesByName } from './app.js';
 
 const app = express();
 
-
+app.use((req, res, next)=>{
+    res.header("Access-Control-Allow-Origin", "http://localhost:3001");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+})
 app.get('/',async(req, res)=>{ //Obtenemos todos los items disponibles
     const result = await GetCities();
     res.json(result);
