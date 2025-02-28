@@ -55,6 +55,8 @@ export async function GetCityById(city_id){ //Regresa una ciudad especifíca y s
         .then(async result =>{
             const search_city = result?result.find((city) => city.id==city_id):'No se encontraron ciudades'
             const city_weather = await GetWeather(search_city.lat, search_city.long)
+            const weather_now = await GetWeather(search_city.lat, search_city.long)
+            search_city["weather_now"]=weather_now.list[0]
             search_city["pronostic_weather"]=city_weather?city_weather.list.filter(item=>item.dt_txt.includes('12:00:00')):null
             return search_city;
         })
